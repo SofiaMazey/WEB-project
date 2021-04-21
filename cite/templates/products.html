@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if current_user.is_authenticated %}
+<font face="comic sans ms">
+    <a href="jams" class="btn btn-outline-info my-2 my-sm-0">Добавить продукт</a>
+<a href="/" class="btn btn-outline-info my-2 my-sm-0">Вернутся на главную страницу</a>
+{% endif %}
+{% for item in jams%}
+<div class="col-md6 border rounded">
+    <form method="post" action="/add">
+   {% if item.user_id == current_user.id %}
+    <h2>{{item.title}}</h2>
+    <div>
+        <img src="../{{item.picture}}" alt="Avatar"  width="400" height="250"><br>
+    </div>
+        <h4>О продукте:</h4> <h6>{{item.about}}  </h6>
+        {% endif %}
+        </form>
+        {% if current_user.is_authenticated and current_user == item.user %}
+    <div>
+        <a href="/jams/{{ item.id }}" class="btn btn-outline-warning my-2 my-sm-0">
+            Изменить
+        </a>
+        <a href="/jams_delete/{{ item.id }}" class="btn btn-outline-danger my-2 my-sm-0">
+            Удалить
+        </a>
+    </div>
+{% endif %}
+        {% endfor %}
+</div>
+</font>
+{% endblock %}

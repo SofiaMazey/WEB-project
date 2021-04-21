@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<a href="/" class="btn btn-outline-info my-2 my-sm-0">Вернутся на главную страницу</a>
+{% for item in jams%}
+<div class="col-md6 border rounded">
+    <font face="comic sans ms">
+    <form method="post" action="/add">
+    <h2>{{item.title}}</h2>
+    <div>
+        <img src="../{{item.picture}}" alt="Avatar"  width="400" height="250"><br>
+    </div>
+        <h4>О продукте:</h4> <h6>{{item.about}}  </h6>
+       {% set a = item.user_id %}
+        {% for i in user %}
+           {% if i.id == a %}
+       <h4>Производитель:</h4> <h6>{{i.company_name}}  </h6>
+        {% endif %}
+        {% endfor %}
+    </form>
+    </font>
+</div>
+{% endfor %}
+
+{% endblock %}
